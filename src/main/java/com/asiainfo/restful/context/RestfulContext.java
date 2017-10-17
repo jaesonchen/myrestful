@@ -32,7 +32,8 @@ public class RestfulContext {
     }
 
     public static void destroyRestContext() {
-        threadLocal.set(null);
+    	threadLocal.remove();
+    	//threadLocal.set(null);
     }
 
     public HttpServletRequest getHttpServletRequest() {

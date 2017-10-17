@@ -27,7 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class RestfulHandler {
 
     Log log = LogFactory.getLog(getClass());
-
+    static final String GET = "GET";
+    static final String POST = "POST";
+    static final String PUT = "PUT";
+    static final String DELETE = "DELETE";
+    static final String CONTENTTYPE_JSON = "application/json";
+    
     Routers routes = new Routers();
 
     public void registerHandler(String name) {
@@ -89,7 +94,7 @@ public class RestfulHandler {
     protected void processRequest(HttpServletRequest req, HttpServletResponse res, String method, String path) throws IOException {
     	
         // check content type
-        if (!"GET".equals(method) && req.getContentLength() > 0 && !checkContentType(req.getContentType())) {
+        if (!GET.equals(method) && req.getContentLength() > 0 && !checkContentType(req.getContentType())) {
             log.debug("415 UNSUPPORTED MEDIA TYPE: not a json request.");
             res.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, "Request must be application/json.");
             return;
@@ -103,8 +108,6 @@ public class RestfulHandler {
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             Writer writer = res.getWriter();
-            /*JsonWriter jsonWriter = new JsonBuilder().createWriter(writer);
-            jsonWriter.write(ret);*/
     		writer.write(new ObjectMapper().writeValueAsString(ret));
             writer.flush();
         }
@@ -147,10 +150,10 @@ public class RestfulHandler {
             return false;
         }
         final String type = contentType.toLowerCase();
-        if (type.equals("application/json")) {
+        if (CONTENTTYPE_JSON.equals(type)) {
             return true;
         }
-        if (type.startsWith("application/json")) {
+        if (type.startsWith(CONTENTTYPE_JSON)) {
             char ch = type.charAt(16);
             return ch == ' ' || ch == ';';
         }
