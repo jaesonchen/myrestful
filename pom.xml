@@ -9,6 +9,7 @@
   <url>http://maven.apache.org</url>
 
 	<properties>
+        <maven.compiler.jdk>1.8</maven.compiler.jdk>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	</properties>
@@ -88,8 +89,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.2</version>
 				<configuration>
-				    <source>1.8</source>
-				    <target>1.8</target>
+				    <source>${maven.compiler.jdk}</source>
+				    <target>${maven.compiler.jdk}</target>
 				    <encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>

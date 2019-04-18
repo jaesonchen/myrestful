@@ -17,13 +17,13 @@
         </init-param>
         <init-param>
             <param-name>urlPrefix</param-name>
-            <param-value>/api</param-value>
+            <param-value>/restful</param-value>
         </init-param>
         <load-on-startup>0</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>restServlet</servlet-name>
-        <url-pattern>/api/*</url-pattern>
+        <url-pattern>/restful/*</url-pattern>
     </servlet-mapping>
 </web-app>

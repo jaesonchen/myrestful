@@ -16,6 +16,7 @@ import com.asiainfo.restful.annotation.PathVariable;
 /**
  * 
  * @Description: Route by regular express.
+ *               把@Path定义的路径变成正则表达式，并取出路径变量名
  * 
  * @author       zq
  * @date         2017年10月13日  上午11:34:09
@@ -24,6 +25,7 @@ import com.asiainfo.restful.annotation.PathVariable;
 public class Route {
 
     static final Log log = LogFactory.getLog(Route.class);
+    //request uri中的路径变量正则表达式
     static final Pattern RE_ROUTE_VAR = Pattern.compile("\\:([A-Za-z\\_][A-Za-z0-9]*)");
 
     final String[] parameters;
@@ -84,8 +86,8 @@ public class Route {
 
     /**
      * 
-     * @Description: 正则表达式路径变量
-     * 
+     * @Description: 正则表达式路径变量，给路径变量编组命名，方便后续读取request的路径变量值
+     *               (?<name>[^\\/]+) 匹配非/的所有内容
      * @param sb
      * @param name
      */
@@ -95,7 +97,7 @@ public class Route {
 
     /**
      * 
-     * @Description: 正则表达式路径
+     * @Description: 正则表达式路径，给特殊字符加上\\
      * 
      * @param sb
      * @param s
@@ -169,7 +171,6 @@ public class Route {
             Map<String, String> map = new HashMap<String, String>();
             for (String param : this.parameters) {
                 map.put(param, matcher.group(param));
-                //System.out.println(param + "=" + map.get(param));
             }
             return map;
         }

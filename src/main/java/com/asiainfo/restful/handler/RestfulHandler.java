@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
- * @Description: RestApiHandler serves JSON-REST API request, and send JSON-Response.
+ * @Description: RestfulHandler serves JSON-REST API request, and send JSON-Response.
  * 
  * @author       zq
  * @date         2017年10月13日  上午9:39:07
@@ -83,7 +83,7 @@ public class RestfulHandler {
 
     /**
      * 
-     * @Description: 
+     * @Description: 调用Routers进行request分发，并将结果json写入response
      * 
      * @param req
      * @param res
@@ -149,7 +149,7 @@ public class RestfulHandler {
         if (StringUtils.isEmpty(contentType)) {
             return false;
         }
-        final String type = contentType.toLowerCase();
+        String type = contentType.toLowerCase();
         if (CONTENTTYPE_JSON.equals(type)) {
             return true;
         }

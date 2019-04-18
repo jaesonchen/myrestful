@@ -20,7 +20,7 @@
 	$("#bth-list").click(function() {
 	    $.ajax({
 	        type: "GET",
-	        url: "<%=contextPath%>/api/users",
+	        url: "<%=contextPath%>/restful/users",
 	        contentType: "application/json; charset=utf-8",
 	        data: {},
 	        dataType: "json",
@@ -36,7 +36,7 @@
 	$("#bth-get").click(function() {
 	    $.ajax({
 	        type: "GET",
-	        url: "<%=contextPath%>/api/users/1001",
+	        url: "<%=contextPath%>/restful/users/1001",
 	        contentType: "application/json; charset=utf-8",
 	        data: {},
 	        dataType: "json",
@@ -52,7 +52,7 @@
 	$("#bth-post").click(function() {
 	    $.ajax({
 	        type: "POST",
-	        url: "<%=contextPath%>/api/users/1002",
+	        url: "<%=contextPath%>/restful/users/1002",
 	        contentType: "application/json; charset=utf-8",
 	        data: JSON.stringify(GetPostData()),
 	        dataType: "json",
@@ -76,7 +76,7 @@
 	$("#bth-put").click(function() {
 	    $.ajax({
 	        type: "PUT",
-	        url: "<%=contextPath%>/api/users",
+	        url: "<%=contextPath%>/restful/users",
 	        contentType: "application/json; charset=utf-8",
 	        data: JSON.stringify(GetPutData()),
 	        dataType: "json",
@@ -99,7 +99,7 @@
 	$("#bth-delete").click(function() {
 	    $.ajax({
 	        type: "DELETE",
-	        url: "<%=contextPath%>/api/users/1003",
+	        url: "<%=contextPath%>/restful/users/1003",
 	        contentType: "application/json; charset=utf-8",
 	        data: {},
 	        dataType: "json",

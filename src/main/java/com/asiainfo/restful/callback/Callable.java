@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * 
  * @Description: Callable object to hold method and argument informations.
+ *               真正的请求处理回调方法，每个@Path对应一个method，在构建时解析method需要的参数列表，在回调时使用该参数列表从request中创建调用参数。
  * 
  * @author       zq
  * @date         2017年10月13日  上午9:42:49
@@ -73,7 +74,7 @@ public class Callable {
 
 	/**
      * 
-     * @Description: 
+     * @Description: 解析controller中@Path定义的url与处理方法method的参数映射关系
      * 
      * @param clazz
      * @param method
@@ -91,25 +92,20 @@ public class Callable {
             String varName = p.getName();
             Class<?> varType = p.getType();
             if (HttpServletRequest.class.equals(varType)) {
-            	//System.out.println("request --> varType=" + varType + ", varName=" + varName);
                 vars.add(PathVar.createRequestVar(varName, index));
             }
             else if (HttpServletResponse.class.equals(varType)) {
-            	//System.out.println("response --> varType=" + varType + ", varName=" + varName);
                 vars.add(PathVar.createResponseVar(varName, index));
             }
             //Map<String, String> query
             else if (isMapStringString(p)) {
-            	//System.out.println("map --> varType=" + varType + ", varName=" + varName);
                 vars.add(PathVar.createQueryVar(varName, index));
             }
             //accept pathvar
-            else if (route != null && route.hasParameter(p)) {//route.hasParameter(varName)) {
+            else if (route != null && route.hasParameter(p)) {
                 if (!isValidPathVariableType(varType)) {
                     throw new IllegalArgumentException("Unsupported path variable \"" + varType.getName() + " " + varName + "\" in " + toHandlerString(clazz, method));
                 }
-                //System.out.println("pathvar --> varType=" + varType + ", varName=" + varName);
-                //vars.add(PathVar.createPathVar(varType, varName, index));
                 vars.add(PathVar.createPathVar(varType, route.getPathVariable(p), index));
             }
             //accept json
@@ -117,7 +113,6 @@ public class Callable {
                 if (foundJson) {
                     throw new IllegalArgumentException("Duplicate json variable \"" + varType.getName() + " " + varName + "\" in " + toHandlerString(clazz, method));
                 }
-                //System.out.println("json --> varType=" + varType + ", varName=" + varName);
                 vars.add(PathVar.createJsonVar(varType, varName, index));
                 foundJson = true;
             }
@@ -207,7 +202,7 @@ public class Callable {
     
     /**
      * 
-     * @Description: TODO
+     * @Description: request中的json 到controller 参数对象映射
      * 
      * @param type
      * @param req

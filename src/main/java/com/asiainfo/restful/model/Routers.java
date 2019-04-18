@@ -28,6 +28,7 @@ import com.asiainfo.restful.util.ReflectUtils;
 /**
  * 
  * @Description: A collection of Route objects.
+ *               解析controller的@Path方法，按静态路径、正则路径进行注册，在request时负责查找对应的Callable，并进行回调
  * 
  * @author       zq
  * @date         2017年10月13日  上午10:44:43
